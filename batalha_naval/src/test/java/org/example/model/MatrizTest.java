@@ -1,5 +1,6 @@
 package org.example.model;
 
+import org.example.enums.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,19 +41,18 @@ public class MatrizTest {
         final int coluna = 9, linha = 0;
         //Ação
         matriz.setCoordenadasSubmarino(linha, coluna);
-        Coordenadas coordenadas = matriz.getCoordenadasSubmarino();
-
         //Asserção
-        assertEquals(coordenadas.getColuna(), coluna);
-        assertEquals(coordenadas.getLinha(), linha);
-        assertEquals(matriz.getCharNasCoordenadas(linha, coluna), Matriz.SIMBOLO_SUBMARINO);
+        assertEquals(matriz.getCharNasCoordenadas(linha, coluna), 'X');
     }
 
     @Test
-    public void setCoordenadasSubmarino_Deve_Lancar_ArrayIndexOutOfBoundsException_Quando_Um_Valor_De_Coluna_Ou_Linha_For_Menor_Do_Que_Zero_Ou_Maior_Do_Que_Nove(){
-        assertThrows(ArrayIndexOutOfBoundsException.class,() -> matriz.setCoordenadasSubmarino(-1, 0));
-        assertThrows(ArrayIndexOutOfBoundsException.class,() -> matriz.setCoordenadasSubmarino(0, -1));
-        assertThrows(ArrayIndexOutOfBoundsException.class,() -> matriz.setCoordenadasSubmarino(9, 10));
-        assertThrows(ArrayIndexOutOfBoundsException.class,() -> matriz.setCoordenadasSubmarino(10, 9));
+    public void setCoordenadasRebocador_Deve_Colocar_Um_Rebocador_Nas_Coordenadas_Definidas(){
+        final int coluna = 8, linha = 0;
+        //Ação
+        matriz.setCoordenadasRebocador(new Coordenada(linha, coluna), Position.VERTICAL, 0);
+
+        //Asserção
+        assertEquals(matriz.getCharNasCoordenadas(linha, coluna), 'X');
+        assertEquals(matriz.getCharNasCoordenadas(linha, coluna+1), 'X');
     }
 }

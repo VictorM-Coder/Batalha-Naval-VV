@@ -13,17 +13,17 @@ public class BarcoTeste {
     public void contemCoordenadas_Deve_Retornar_True_Quando_O_Barco_Possui_As_Coordenadas_Passadas(){
         final int linha = 0, coluna = 0;
         Barco barco = new Barco(1);
-        barco.setCoordenadas(List.of(new Coordenadas(linha, coluna)));
+        barco.setCoordenadas(List.of(new Coordenada(linha, coluna)));
 
-        assertTrue(barco.contemCoordenadas(new Coordenadas(linha, coluna)));
+        assertTrue(barco.contemCoordenadas(new Coordenada(linha, coluna)));
     }
 
     @Test
     public void contemCoordenadas_Deve_Retornar_False_Quando_O_Barco_Nao_Possui_As_Coordenadas_Passadas(){
         final int linha = 0, coluna = 0;
         Barco barco = new Barco(1);
-        barco.setCoordenadas(List.of(new Coordenadas(linha, coluna)));
+        barco.setCoordenadas(List.of(new Coordenada(linha, coluna)));
 
-        assertFalse(barco.contemCoordenadas(new Coordenadas(1, 1)));
+        assertFalse(barco.contemCoordenadas(new Coordenada(1, 1)));
     }
 }

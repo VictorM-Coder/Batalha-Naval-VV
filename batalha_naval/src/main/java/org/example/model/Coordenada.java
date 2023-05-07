@@ -2,11 +2,11 @@ package org.example.model;
 
 import java.util.Objects;
 
-public class Coordenadas {
+public class Coordenada {
     private int coluna;
     private int linha;
 
-    public Coordenadas(int linha, int coluna) throws ArrayIndexOutOfBoundsException{
+    public Coordenada(int linha, int coluna) throws ArrayIndexOutOfBoundsException{
         if (linha < 0 || linha > 9 || coluna < 0 || coluna > 9){
             throw new ArrayIndexOutOfBoundsException("Coordenada com valor inválido, passe um valor entre 0 e 9");
         }
@@ -18,7 +18,7 @@ public class Coordenadas {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Coordenadas that)) return false;
+        if (!(o instanceof Coordenada that)) return false;
         return getColuna() == that.getColuna() && getLinha() == that.getLinha();
     }
 
