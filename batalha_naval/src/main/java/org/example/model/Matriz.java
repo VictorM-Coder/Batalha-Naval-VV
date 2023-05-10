@@ -1,6 +1,7 @@
 package org.example.model;
 
 import org.example.enums.Position;
+import org.example.exception.CoordenadaInvalidaException;
 import org.example.model.barco.Barco;
 
 import java.util.ArrayList;
@@ -48,7 +49,11 @@ public class Matriz {
                 barco.setCoordenadas(coordenadas);
                 this.coordenadaUsadas.addAll(coordenadas);
                 alocarCoordenadas(coordenadas);
+            }else {
+                throw new CoordenadaInvalidaException("as coordenada passadas são inválidas, tente um intervalo livre");
             }
+        }else{
+            throw new CoordenadaInvalidaException("as coordenada passadas são inválidas, tente um intervalo livre");
         }
     }
 

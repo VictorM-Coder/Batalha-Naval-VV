@@ -1,10 +1,14 @@
 package org.example.model;
 
+import org.example.enums.Position;
+import org.example.exception.CoordenadaInvalidaException;
+import org.example.model.barco.factory.BarcoFactory;
+import org.example.model.barco.factory.RebocadorFactory;
+import org.example.model.barco.factory.SubmarinoFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MatrizTest {
     private Matriz matriz;
@@ -34,5 +38,35 @@ public class MatrizTest {
                 if (aChar != ' ') fail();
             }
         }
+    }
+
+    @Test
+    public void alocarBarco_Deve_Colocar_Um_Barco_Nas_Coordenadas_Definidas(){
+        final int coluna = 9, linha = 0;
+        final Coordenada coordenada = new Coordenada(linha, coluna);
+
+        matriz.alocarBarco((new SubmarinoFactory()).criarNovoBarco(), coordenada, Position.HORIZONTAL);
+
+        assertEquals('X', matriz.getCharNasCoordenadas(linha, coluna));
+    }
+
+    @Test
+    public void alocarBarco_Deve_Lancar_CoordenadaInvalidaException_Quando_Aquela_Coordenada_Ja_Estiver_Ocupada(){
+        final int coluna = 9, linha = 0;
+        final Coordenada coordenada = new Coordenada(linha, coluna);
+        BarcoFactory factory = new SubmarinoFactory();
+        matriz.alocarBarco(factory.criarNovoBarco(), coordenada, Position.HORIZONTAL);
+
+        CoordenadaInvalidaException exception = assertThrows(CoordenadaInvalidaException.class, () -> matriz.alocarBarco(factory.criarNovoBarco(), coordenada, Position.HORIZONTAL));
+        assertEquals("as coordenada passadas são inválidas, tente um intervalo livre", exception.getMessage());
+    }
+
+    @Test
+    public void alocarBarco_Deve_Lancar_CoordenadaInvalidaException_Quando_Um_Parte_Do_Barco_Tentar_Ocupar_Coordenada_Ja_Ocupada(){
+        BarcoFactory factory = new RebocadorFactory();
+        matriz.alocarBarco(factory.criarNovoBarco(), new Coordenada(0,1), Position.HORIZONTAL);
+
+        CoordenadaInvalidaException exception = assertThrows(CoordenadaInvalidaException.class, () -> matriz.alocarBarco(factory.criarNovoBarco(), new Coordenada(0, 0), Position.HORIZONTAL));
+        assertEquals("as coordenada passadas são inválidas, tente um intervalo livre", exception.getMessage());
     }
 }
