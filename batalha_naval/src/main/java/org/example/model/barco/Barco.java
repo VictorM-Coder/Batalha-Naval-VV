@@ -1,16 +1,18 @@
-package org.example.model;
+package org.example.model.barco;
+
+import org.example.model.Coordenada;
 
 import java.util.List;
 
-public class Barco {
+public abstract class Barco {
     private List<Coordenada> coordenadas;
     private boolean afundado;
-    private int partes;
+    protected final int partes;
 
-
-    public Barco(int partes){
+    protected Barco(int partes) {
         this.partes = partes;
     }
+
 
     public boolean contemCoordenadas(Coordenada coordenada){
         return this.coordenadas.contains(coordenada);

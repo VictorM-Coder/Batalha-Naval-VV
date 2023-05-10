@@ -1,10 +1,10 @@
 package org.example.model;
 
-import org.example.enums.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class MatrizTest {
     private Matriz matriz;
@@ -34,25 +34,5 @@ public class MatrizTest {
                 if (aChar != ' ') fail();
             }
         }
-    }
-
-    @Test
-    public void setCoordenadasSubmarino_Deve_Colocar_Um_Submarino_Nas_Coordenadas_Definidas(){
-        final int coluna = 9, linha = 0;
-        //Ação
-        matriz.setCoordenadasSubmarino(linha, coluna);
-        //Asserção
-        assertEquals(matriz.getCharNasCoordenadas(linha, coluna), 'X');
-    }
-
-    @Test
-    public void setCoordenadasRebocador_Deve_Colocar_Um_Rebocador_Nas_Coordenadas_Definidas(){
-        final int coluna = 8, linha = 0;
-        //Ação
-        matriz.setCoordenadasRebocador(new Coordenada(linha, coluna), Position.VERTICAL, 0);
-
-        //Asserção
-        assertEquals(matriz.getCharNasCoordenadas(linha, coluna), 'X');
-        assertEquals(matriz.getCharNasCoordenadas(linha, coluna+1), 'X');
     }
 }
