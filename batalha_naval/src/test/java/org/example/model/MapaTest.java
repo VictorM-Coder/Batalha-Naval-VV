@@ -19,7 +19,7 @@ public class MapaTest {
         //Ação
         mapa.setCoordenadasSubmarino(linha, coluna);
         //Asserção
-        assertEquals(mapa.getCharNasCoordenadas(linha, coluna), 'X');
+        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna));
     }
 
     @Test
@@ -29,8 +29,8 @@ public class MapaTest {
         mapa.setCoordenadasRebocador(new Coordenada(linha, coluna), Position.HORIZONTAL, 0);
 
         //Asserção
-        assertEquals(mapa.getCharNasCoordenadas(linha, coluna), 'X');
-        assertEquals(mapa.getCharNasCoordenadas(linha, coluna+1), 'X');
+        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna));
+        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna+1));
     }
 
     @Test

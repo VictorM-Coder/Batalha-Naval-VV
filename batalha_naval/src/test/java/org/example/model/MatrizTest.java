@@ -19,8 +19,8 @@ public class MatrizTest {
         char[][] campo = matriz.getMapa();
 
         //Asserção
-        assertEquals(campo.length, 10);
-        assertEquals(campo[0].length, 10);
+        assertEquals(10, campo.length);
+        assertEquals(10, campo[0].length);
     }
 
     @Test
