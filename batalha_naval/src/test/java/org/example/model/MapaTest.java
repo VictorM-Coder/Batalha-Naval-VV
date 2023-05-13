@@ -1,6 +1,7 @@
 package org.example.model;
 
 import org.example.enums.Position;
+import org.example.enums.StatusTiro;
 import org.example.model.coordenada.Coordenada;
 import org.example.model.mapa.Mapa;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,6 +16,48 @@ public class MapaTest {
     void setup(){
         this.mapa = new Mapa();
     }
+
+    @Test
+    public void disparar_Deve_Retornar_Acertou_Quando_O_Tiro_Acertar_Um_Barco() {
+        Coordenada coordenada = new Coordenada(0, 8);
+        this.mapa.setCoordenadasRebocador(coordenada, Position.HORIZONTAL, 0);
+
+        StatusTiro status = this.mapa.disparar(coordenada);
+
+        assertEquals(StatusTiro.ACERTOU, status);
+        assertEquals('X', this.mapa.getCharNasCoordenadas(coordenada));
+    }
+
+    @Test
+    public void disparar_Deve_Retornar_Afundou_Quando_O_Tiro_Acertar_E_Afundar_Um_Barco(){
+        Coordenada coordenada = new Coordenada(0, 9);
+        this.mapa.setCoordenadasSubmarino(coordenada);
+
+        StatusTiro status = this.mapa.disparar(coordenada);
+
+        assertEquals(StatusTiro.AFUNDOU, status);
+        assertEquals('X', this.mapa.getCharNasCoordenadas(coordenada));
+    }
+
+    @Test
+    public void disparar_Deve_Retornar_Local_Repetido_Quando_O_Tiro_Acertar_Um_Local_Que_Ja_Foi_Atingido(){
+        Coordenada coordenada = new Coordenada(0, 9);
+        this.mapa.disparar(coordenada);
+        StatusTiro status = this.mapa.disparar(coordenada);
+
+        assertEquals(StatusTiro.LOCAL_REPETIDO, status);
+    }
+
+    @Test
+    public void disparar_Deve_Retornar_Tiro_Na_Agua_Quando_O_Tiro_Nao_Acertar_Nada(){
+        Coordenada coordenada = new Coordenada(0, 9);
+
+        StatusTiro status = this.mapa.disparar(coordenada);
+
+        assertEquals(StatusTiro.TIRO_NA_AGUA, status);
+        assertEquals('*', this.mapa.getCharNasCoordenadas(coordenada));
+    }
+
     @Test
     public void setCoordenadasSubmarino_Deve_Colocar_Um_Submarino_Nas_Coordenadas_Definidas(){
         final Coordenada coordenada = new Coordenada(0, 9);

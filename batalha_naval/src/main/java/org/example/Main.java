@@ -17,7 +17,6 @@ public class Main {
         mapa.setCoordenadasContraTorpedeiro(new Coordenada(4, 0), Position.HORIZONTAL, 1);
         mapa.setCoordenadasPortaAvioes(new Coordenada(5, 0), Position.HORIZONTAL);
 
-        mapa.setCoordenadasSubmarino(new Coordenada(0,0));
         mapa.setCoordenadasRebocador(new Coordenada(0, 9), Position.VERTICAL, 0);
         mapa.setCoordenadasRebocador(new Coordenada(3, 9), Position.VERTICAL, 1);
         mapa.setCoordenadasContraTorpedeiro(new Coordenada(0, 8), Position.VERTICAL, 0);
