@@ -1,8 +1,10 @@
-package org.example.model;
+package org.example.model.mapa;
 
 import org.example.enums.Position;
+import org.example.model.matriz.Matriz;
 import org.example.model.barco.Barco;
 import org.example.model.barco.factory.*;
+import org.example.model.coordenada.Coordenada;
 
 public class Mapa {
     private Barco submarino;

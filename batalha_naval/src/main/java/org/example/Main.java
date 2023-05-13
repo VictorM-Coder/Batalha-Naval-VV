@@ -1,11 +1,13 @@
 package org.example;
 
 import org.example.enums.Position;
-import org.example.model.Coordenada;
-import org.example.model.Mapa;
+import org.example.model.coordenada.Coordenada;
+import org.example.model.mapa.Mapa;
+import org.example.view.Tela;
 
 public class Main {
     public static void main(String[] args) {
+        Tela.printBanner();
         Mapa mapa = new Mapa();
 
         mapa.setCoordenadasSubmarino(0, 0);
@@ -23,11 +25,6 @@ public class Main {
         mapa.setCoordenadasPortaAvioes(new Coordenada(0, 6), Position.VERTICAL);
         char[][] mapaMatriz = mapa.getMapa();
 
-        for (int cont = 0; cont <= 9; cont++){
-            for (int cont1 = 0; cont1 <= 9; cont1++){
-                System.out.print("["+ mapaMatriz[cont][cont1] + "] ");
-            }
-            System.out.println();
-        }
+        Tela.printMapa(mapaMatriz);
     }
 }

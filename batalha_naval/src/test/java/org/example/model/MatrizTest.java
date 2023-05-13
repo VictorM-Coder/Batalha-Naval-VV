@@ -5,6 +5,8 @@ import org.example.exception.CoordenadaInvalidaException;
 import org.example.model.barco.factory.BarcoFactory;
 import org.example.model.barco.factory.RebocadorFactory;
 import org.example.model.barco.factory.SubmarinoFactory;
+import org.example.model.coordenada.Coordenada;
+import org.example.model.matriz.Matriz;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

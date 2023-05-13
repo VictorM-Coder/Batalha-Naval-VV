@@ -1,6 +1,8 @@
 package org.example.model;
 
 import org.example.enums.Position;
+import org.example.model.coordenada.Coordenada;
+import org.example.model.mapa.Mapa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

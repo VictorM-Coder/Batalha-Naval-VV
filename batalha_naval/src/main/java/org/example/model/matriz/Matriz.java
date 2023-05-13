@@ -1,8 +1,9 @@
-package org.example.model;
+package org.example.model.matriz;
 
 import org.example.enums.Position;
 import org.example.exception.CoordenadaInvalidaException;
 import org.example.model.barco.Barco;
+import org.example.model.coordenada.Coordenada;
 
 import java.util.ArrayList;
 import java.util.Arrays;
