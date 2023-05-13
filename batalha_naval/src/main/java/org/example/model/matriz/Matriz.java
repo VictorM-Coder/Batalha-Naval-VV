@@ -1,6 +1,7 @@
 package org.example.model.matriz;
 
 import org.example.enums.Position;
+import org.example.enums.StatusTiro;
 import org.example.exception.CoordenadaInvalidaException;
 import org.example.model.barco.Barco;
 import org.example.model.coordenada.Coordenada;
@@ -25,8 +26,8 @@ public class Matriz {
         return this.mapa;
     }
 
-    public char getCharNasCoordenadas(int linha, int coluna) {
-        return this.mapa[linha][coluna];
+    public char getCharNasCoordenadas(Coordenada coordenada) {
+        return this.mapa[coordenada.getLinha()][coordenada.getColuna()];
     }
 
     public void alocarBarco(Barco barco, Coordenada coordenada, Position position){
@@ -58,13 +59,22 @@ public class Matriz {
         }
     }
 
-    public void alocarCoordenadas(List<Coordenada> coordenadas){
+    private void alocarCoordenadas(List<Coordenada> coordenadas){
         for (Coordenada coordenada: coordenadas){
             this.mapa[coordenada.getLinha()][coordenada.getColuna()] = 'X';
         }
     }
 
-    public boolean coordenadasEstaoLivres(List<Coordenada> coordenadas){
+    public StatusTiro disparar(Coordenada coordenada){
+        if (this.coordenadaEstaLivre(coordenada)){
+            this.mapa[coordenada.getLinha()][coordenada.getColuna()] = '*';
+            return StatusTiro.TIRO_NA_AGUA;
+        }
+        this.coordenadaUsadas.add(coordenada);
+        return null;
+    }
+
+    private boolean coordenadasEstaoLivres(List<Coordenada> coordenadas){
         for (Coordenada coordenada : coordenadas){
             if (!this.coordenadaEstaLivre(coordenada)){
                 return false;

@@ -1,6 +1,7 @@
 package org.example.model.mapa;
 
 import org.example.enums.Position;
+import org.example.enums.StatusTiro;
 import org.example.model.matriz.Matriz;
 import org.example.model.barco.Barco;
 import org.example.model.barco.factory.*;
@@ -19,12 +20,12 @@ public class Mapa {
         this.matriz = new Matriz();
     }
 
-    public char getCharNasCoordenadas(int linha, int coluna) {
-        return this.matriz.getCharNasCoordenadas(linha, coluna);
+    public char getCharNasCoordenadas(Coordenada coordenada) {
+        return this.matriz.getCharNasCoordenadas(coordenada);
     }
 
-    public void setCoordenadasSubmarino(int linha, int coluna) {
-        this.submarino = this.alocarBarco(new SubmarinoFactory(), new Coordenada(linha, coluna), Position.HORIZONTAL);
+    public void setCoordenadasSubmarino(Coordenada coordenada) {
+        this.submarino = this.alocarBarco(new SubmarinoFactory(), coordenada, Position.HORIZONTAL);
     }
 
     public void setCoordenadasPortaAvioes(Coordenada coordenada, Position position) {
@@ -49,5 +50,9 @@ public class Mapa {
         Barco barco = factory.criarNovoBarco();
         this.matriz.alocarBarco(factory.criarNovoBarco(), coordenada, position);
         return barco;
+    }
+
+    public StatusTiro disparar(Coordenada coordenada) {
+        return this.matriz.disparar(coordenada);
     }
 }

@@ -1,6 +1,7 @@
 package org.example.model;
 
 import org.example.enums.Position;
+import org.example.enums.StatusTiro;
 import org.example.exception.CoordenadaInvalidaException;
 import org.example.model.barco.factory.BarcoFactory;
 import org.example.model.barco.factory.RebocadorFactory;
@@ -17,6 +18,16 @@ public class MatrizTest {
     @BeforeEach
     void setup(){
         this.matriz = new Matriz();
+    }
+
+    @Test
+    public void disparar_Deve_Retornar_Tiro_Na_Agua_Quando_O_Tiro_Nao_Acertar_Nada(){
+        Coordenada coordenada = new Coordenada(0, 9);
+
+        StatusTiro status = this.matriz.disparar(coordenada);
+
+        assertEquals(StatusTiro.TIRO_NA_AGUA, status);
+        assertEquals('*', this.matriz.getCharNasCoordenadas(coordenada));
     }
 
     @Test
@@ -44,12 +55,11 @@ public class MatrizTest {
 
     @Test
     public void alocarBarco_Deve_Colocar_Um_Barco_Nas_Coordenadas_Definidas(){
-        final int coluna = 9, linha = 0;
-        final Coordenada coordenada = new Coordenada(linha, coluna);
+        final Coordenada coordenada = new Coordenada(0, 9);
 
         matriz.alocarBarco((new SubmarinoFactory()).criarNovoBarco(), coordenada, Position.HORIZONTAL);
 
-        assertEquals('X', matriz.getCharNasCoordenadas(linha, coluna));
+        assertEquals('X', matriz.getCharNasCoordenadas(coordenada));
     }
 
     @Test

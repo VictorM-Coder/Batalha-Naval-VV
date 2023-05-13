@@ -17,21 +17,21 @@ public class MapaTest {
     }
     @Test
     public void setCoordenadasSubmarino_Deve_Colocar_Um_Submarino_Nas_Coordenadas_Definidas(){
-        final int coluna = 9, linha = 0;
+        final Coordenada coordenada = new Coordenada(0, 9);
 
-        mapa.setCoordenadasSubmarino(linha, coluna);
+        mapa.setCoordenadasSubmarino(coordenada);
 
-        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna));
+        assertEquals('X', mapa.getCharNasCoordenadas(coordenada));
     }
 
     @Test
     public void setCoordenadasRebocador_Deve_Colocar_Um_Rebocador_Nas_Coordenadas_Definidas(){
-        final int coluna = 8, linha = 0;
+        final Coordenada coordenada = new Coordenada(0, 8);
 
-        mapa.setCoordenadasRebocador(new Coordenada(linha, coluna), Position.HORIZONTAL, 0);
+        mapa.setCoordenadasRebocador(coordenada, Position.HORIZONTAL, 0);
 
-        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna));
-        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna+1));
+        assertEquals('X', mapa.getCharNasCoordenadas(coordenada));
+        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(coordenada.getLinha(), coordenada.getColuna()+1)));
     }
 
     @Test
@@ -47,13 +47,13 @@ public class MapaTest {
 
     @Test
     public void setCoordenadasContraTorpedeiro_Deve_Colocar_Um_ContraTorpedeiro_Nas_Coordenadas_Definidas(){
-        final int coluna = 7, linha = 0;
+        final Coordenada coordenada = new Coordenada(0, 7);
 
-        mapa.setCoordenadasContraTorpedeiro(new Coordenada(linha, coluna), Position.HORIZONTAL, 0);
+        mapa.setCoordenadasContraTorpedeiro(coordenada, Position.HORIZONTAL, 0);
 
-        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna));
-        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna+1));
-        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna+2));
+        assertEquals('X', mapa.getCharNasCoordenadas(coordenada));
+        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(coordenada.getLinha(), coordenada.getColuna()+1)));
+        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(coordenada.getLinha(), coordenada.getColuna()+2)));
     }
 
     @Test
@@ -74,9 +74,9 @@ public class MapaTest {
 
         mapa.setCoordenadasPortaAvioes(coordenada, Position.HORIZONTAL);
 
-        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna));
-        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna+1));
-        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna+2));
-        assertEquals('X', mapa.getCharNasCoordenadas(linha, coluna+3));
+        assertEquals('X', mapa.getCharNasCoordenadas(coordenada));
+        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(linha, coluna+1)));
+        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(linha, coluna+2)));
+        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(linha, coluna+3)));
     }
 }
