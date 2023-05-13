@@ -12,15 +12,44 @@ import java.util.List;
 
 public class Matriz {
     private char[][] mapa;
-    private List<Coordenada> coordenadaUsadas;
+    private List<Barco> barcos;
+    private List<Coordenada> coordenadasBarcos;
+    private List<Coordenada> coordenadasDescobertas;
 
     public Matriz(){
-        this.coordenadaUsadas = new ArrayList<>();
+        this.barcos = new ArrayList<>();
+        this.coordenadasBarcos = new ArrayList<>();
+        this.coordenadasDescobertas = new ArrayList<>();
         this.mapa = new char[10][10];
         for (char[] chars : this.mapa) {
             Arrays.fill(chars, ' ');
         }
     }
+
+
+    public StatusTiro disparar(Coordenada coordenada){
+        if (!coordenadasDescobertas.contains(coordenada)){
+            coordenadasDescobertas.add(coordenada);
+
+            if (coordenadaEstaLivre(coordenada)){
+                this.mapa[coordenada.getLinha()][coordenada.getColuna()] = '*';
+                return StatusTiro.TIRO_NA_AGUA;
+            }
+
+            Barco barco = getBarcoByCoordenada(coordenada);
+            barco.afundarParte();
+            if (barco.estaAfundado()){
+                return StatusTiro.AFUNDOU;
+            }else{
+                return StatusTiro.ACERTOU;
+            }
+
+
+        }else {
+            return StatusTiro.LOCAL_REPETIDO;
+        }
+    }
+
 
     public char[][] getMapa() {
         return this.mapa;
@@ -49,8 +78,9 @@ public class Matriz {
 
             if (this.coordenadasEstaoLivres(coordenadas)){
                 barco.setCoordenadas(coordenadas);
-                this.coordenadaUsadas.addAll(coordenadas);
+                this.coordenadasBarcos.addAll(coordenadas);
                 alocarCoordenadas(coordenadas);
+                this.barcos.add(barco);
             }else {
                 throw new CoordenadaInvalidaException("as coordenada passadas são inválidas, tente um intervalo livre");
             }
@@ -65,15 +95,6 @@ public class Matriz {
         }
     }
 
-    public StatusTiro disparar(Coordenada coordenada){
-        if (this.coordenadaEstaLivre(coordenada)){
-            this.mapa[coordenada.getLinha()][coordenada.getColuna()] = '*';
-            return StatusTiro.TIRO_NA_AGUA;
-        }
-        this.coordenadaUsadas.add(coordenada);
-        return null;
-    }
-
     private boolean coordenadasEstaoLivres(List<Coordenada> coordenadas){
         for (Coordenada coordenada : coordenadas){
             if (!this.coordenadaEstaLivre(coordenada)){
@@ -83,7 +104,13 @@ public class Matriz {
         return true;
     }
 
+    private Barco getBarcoByCoordenada(Coordenada coordenada){
+        return (Barco) this.barcos.stream()
+                .filter(barco -> barco.contemCoordenadas(coordenada))
+                .toArray()[0];
+    }
+
     public boolean coordenadaEstaLivre(Coordenada coordenada){
-        return !this.coordenadaUsadas.contains(coordenada);
+        return !this.coordenadasBarcos.contains(coordenada);
     }
 }

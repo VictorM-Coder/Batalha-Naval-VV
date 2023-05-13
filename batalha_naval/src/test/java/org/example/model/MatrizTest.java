@@ -3,6 +3,8 @@ package org.example.model;
 import org.example.enums.Position;
 import org.example.enums.StatusTiro;
 import org.example.exception.CoordenadaInvalidaException;
+import org.example.model.barco.Rebocador;
+import org.example.model.barco.Submarino;
 import org.example.model.barco.factory.BarcoFactory;
 import org.example.model.barco.factory.RebocadorFactory;
 import org.example.model.barco.factory.SubmarinoFactory;
@@ -18,6 +20,37 @@ public class MatrizTest {
     @BeforeEach
     void setup(){
         this.matriz = new Matriz();
+    }
+
+    @Test
+    public void disparar_Deve_Retornar_Acertou_Quando_O_Tiro_Acertar_Um_Barco() {
+        Coordenada coordenada = new Coordenada(0, 8);
+        this.matriz.alocarBarco(new Rebocador(), coordenada, Position.HORIZONTAL);
+
+        StatusTiro status = this.matriz.disparar(coordenada);
+
+        assertEquals(StatusTiro.ACERTOU, status);
+        assertEquals('X', this.matriz.getCharNasCoordenadas(coordenada));
+    }
+
+    @Test
+    public void disparar_Deve_Retornar_Afundou_Quando_O_Tiro_Acertar_E_Afundar_Um_Barco(){
+        Coordenada coordenada = new Coordenada(0, 9);
+        this.matriz.alocarBarco(new Submarino(), coordenada, Position.HORIZONTAL);
+
+        StatusTiro status = this.matriz.disparar(coordenada);
+
+        assertEquals(StatusTiro.AFUNDOU, status);
+        assertEquals('X', this.matriz.getCharNasCoordenadas(coordenada));
+    }
+
+    @Test
+    public void disparar_Deve_Retornar_Local_Repetido_Quando_O_Tiro_Acertar_Um_Local_Que_Ja_Foi_Atingido(){
+        Coordenada coordenada = new Coordenada(0, 9);
+        this.matriz.disparar(coordenada);
+        StatusTiro status = this.matriz.disparar(coordenada);
+
+        assertEquals(StatusTiro.LOCAL_REPETIDO, status);
     }
 
     @Test

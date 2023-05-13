@@ -7,9 +7,11 @@ import java.util.List;
 public abstract class Barco {
     private List<Coordenada> coordenadas;
     private boolean afundado;
+    private int partesAfundadas;
     protected final int partes;
 
     protected Barco(int partes) {
+        this.partesAfundadas = 0;
         this.partes = partes;
     }
 
@@ -28,5 +30,15 @@ public abstract class Barco {
 
     public List<Coordenada> getCoordenadas() {
         return coordenadas;
+    }
+
+    public void afundarParte(){
+        if (!estaAfundado()){
+            this.partesAfundadas++;
+        }
+    }
+
+    public boolean estaAfundado(){
+        return partesAfundadas >= partes;
     }
 }
