@@ -46,13 +46,18 @@ public class Mapa {
         return this.matriz.getMapa();
     }
 
-    private Barco alocarBarco(BarcoFactory factory, Coordenada coordenada, Position position){
-        Barco barco = factory.criarNovoBarco();
-        this.matriz.alocarBarco(factory.criarNovoBarco(), coordenada, position);
-        return barco;
-    }
-
     public StatusTiro disparar(Coordenada coordenada) {
         return this.matriz.disparar(coordenada);
+    }
+
+    public boolean todosOsBarcosForamAfundados(){
+        return rebocadores[0].estaAfundado() && rebocadores[1].estaAfundado() && portaAvioes.estaAfundado()
+                && submarino.estaAfundado() && contraTorpedeiros[0].estaAfundado() && contraTorpedeiros[1].estaAfundado();
+    }
+
+    private Barco alocarBarco(BarcoFactory factory, Coordenada coordenada, Position position){
+        Barco barco = factory.criarNovoBarco();
+        this.matriz.alocarBarco(barco, coordenada, position);
+        return barco;
     }
 }

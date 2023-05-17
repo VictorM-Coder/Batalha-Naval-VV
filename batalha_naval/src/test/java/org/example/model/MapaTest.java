@@ -2,13 +2,15 @@ package org.example.model;
 
 import org.example.enums.Position;
 import org.example.enums.StatusTiro;
+import org.example.model.barco.Barco;
 import org.example.model.coordenada.Coordenada;
 import org.example.model.mapa.Mapa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MapaTest {
     private Mapa mapa;
@@ -121,5 +123,62 @@ public class MapaTest {
         assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(linha, coluna+1)));
         assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(linha, coluna+2)));
         assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(linha, coluna+3)));
+    }
+
+    @Test
+    public void todosOsBarcosForamAfundados_Deve_Retornar_True_Quando_Todos_os_Barcos_Forem_Afundados(){
+        mapa.setCoordenadasSubmarino(new Coordenada(0, 0));
+        mapa.setCoordenadasRebocador(new Coordenada(1, 0), Position.HORIZONTAL, 0);
+        mapa.setCoordenadasRebocador(new Coordenada(2, 0), Position.HORIZONTAL, 1);
+        mapa.setCoordenadasContraTorpedeiro(new Coordenada(3, 0), Position.HORIZONTAL, 0);
+        mapa.setCoordenadasContraTorpedeiro(new Coordenada(4, 0), Position.HORIZONTAL, 1);
+        mapa.setCoordenadasPortaAvioes(new Coordenada(5, 0), Position.HORIZONTAL);
+
+        mapa.disparar(new Coordenada(0, 0));
+
+        mapa.disparar(new Coordenada(1, 0));
+        mapa.disparar(new Coordenada(1, 1));
+        mapa.disparar(new Coordenada(2, 0));
+        mapa.disparar(new Coordenada(2, 1));
+
+        mapa.disparar(new Coordenada(3, 0));
+        mapa.disparar(new Coordenada(3, 1));
+        mapa.disparar(new Coordenada(3, 2));
+        mapa.disparar(new Coordenada(4, 0));
+        mapa.disparar(new Coordenada(4, 1));
+        mapa.disparar(new Coordenada(4, 2));
+
+        mapa.disparar(new Coordenada(5, 0));
+        mapa.disparar(new Coordenada(5, 1));
+        mapa.disparar(new Coordenada(5, 2));
+        mapa.disparar(new Coordenada(5, 3));
+
+        assertTrue(mapa.todosOsBarcosForamAfundados());
+    }
+
+    @Test
+    public void todosOsBarcosForamAfundados_Deve_Retornar_False_Quando_Nem_Todos_os_Barcos_Estiverem_Afundados(){
+        mapa.setCoordenadasSubmarino(new Coordenada(0, 0));
+        mapa.setCoordenadasRebocador(new Coordenada(1, 0), Position.HORIZONTAL, 0);
+        mapa.setCoordenadasRebocador(new Coordenada(2, 0), Position.HORIZONTAL, 1);
+        mapa.setCoordenadasContraTorpedeiro(new Coordenada(3, 0), Position.HORIZONTAL, 0);
+        mapa.setCoordenadasContraTorpedeiro(new Coordenada(4, 0), Position.HORIZONTAL, 1);
+        mapa.setCoordenadasPortaAvioes(new Coordenada(5, 0), Position.HORIZONTAL);
+
+        mapa.disparar(new Coordenada(0, 0));
+
+        mapa.disparar(new Coordenada(1, 0));
+        mapa.disparar(new Coordenada(1, 1));
+        mapa.disparar(new Coordenada(2, 0));
+        mapa.disparar(new Coordenada(2, 1));
+
+        mapa.disparar(new Coordenada(3, 0));
+        mapa.disparar(new Coordenada(3, 1));
+        mapa.disparar(new Coordenada(3, 2));
+        mapa.disparar(new Coordenada(4, 0));
+        mapa.disparar(new Coordenada(4, 1));
+        mapa.disparar(new Coordenada(4, 2));
+
+        assertFalse(mapa.todosOsBarcosForamAfundados());
     }
 }

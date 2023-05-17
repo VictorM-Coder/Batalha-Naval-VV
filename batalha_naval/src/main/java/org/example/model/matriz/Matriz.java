@@ -26,7 +26,6 @@ public class Matriz {
         }
     }
 
-
     public StatusTiro disparar(Coordenada coordenada){
         if (!coordenadasDescobertas.contains(coordenada)){
             coordenadasDescobertas.add(coordenada);
@@ -110,7 +109,7 @@ public class Matriz {
                 .toArray()[0];
     }
 
-    public boolean coordenadaEstaLivre(Coordenada coordenada){
+    private boolean coordenadaEstaLivre(Coordenada coordenada){
         return !this.coordenadasBarcos.contains(coordenada);
     }
 }
