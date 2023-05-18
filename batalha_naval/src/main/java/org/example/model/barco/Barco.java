@@ -6,7 +6,6 @@ import java.util.List;
 
 public abstract class Barco {
     private List<Coordenada> coordenadas;
-    private boolean afundado;
     private int partesAfundadas;
     protected final int partes;
 

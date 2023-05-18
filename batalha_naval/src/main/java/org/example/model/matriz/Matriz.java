@@ -58,7 +58,7 @@ public class Matriz {
         return this.mapa[coordenada.getLinha()][coordenada.getColuna()];
     }
 
-    public void alocarBarco(Barco barco, Coordenada coordenada, Position position){
+    public void alocarBarco(Barco barco, Coordenada coordenada, Position position) throws CoordenadaInvalidaException{
         if (this.coordenadaEstaLivre(coordenada)){
             List<Coordenada> coordenadas = new ArrayList<>();
             coordenadas.add(coordenada);

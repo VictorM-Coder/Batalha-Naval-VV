@@ -22,17 +22,6 @@ public class Tela {
                 "                                                                ");
     }
 
-    public void printMapa(char[][] mapa){
-        System.out.println("  | A | B | C | D | E | F | H | I | J | K |");
-        for (int cont = 0; cont <= 9; cont++){
-            System.out.print(cont);
-            for (int cont1 = 0; cont1 <= 9; cont1++){
-                System.out.print(" | "+ mapa[cont][cont1]);
-            }
-            System.out.println(" |");
-        }
-    }
-
     public void iniciarJogo(){
         while (true){
             System.out.print("Deseja iniciar um novo? [S/N]: ");
