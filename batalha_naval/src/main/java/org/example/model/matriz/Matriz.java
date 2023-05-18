@@ -37,6 +37,7 @@ public class Matriz {
 
             Barco barco = getBarcoByCoordenada(coordenada);
             barco.afundarParte();
+            alocarCoordenadas(List.of(coordenada));
             if (barco.estaAfundado()){
                 return StatusTiro.AFUNDOU;
             }else{
@@ -78,7 +79,6 @@ public class Matriz {
             if (this.coordenadasEstaoLivres(coordenadas)){
                 barco.setCoordenadas(coordenadas);
                 this.coordenadasBarcos.addAll(coordenadas);
-                alocarCoordenadas(coordenadas);
                 this.barcos.add(barco);
             }else {
                 throw new CoordenadaInvalidaException("as coordenada passadas são inválidas, tente um intervalo livre");
@@ -109,7 +109,7 @@ public class Matriz {
                 .toArray()[0];
     }
 
-    private boolean coordenadaEstaLivre(Coordenada coordenada){
+    public boolean coordenadaEstaLivre(Coordenada coordenada){
         return !this.coordenadasBarcos.contains(coordenada);
     }
 }

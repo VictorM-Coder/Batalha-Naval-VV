@@ -125,7 +125,7 @@ public class GameController {
                 System.out.println("Posicione o primeiro ContraTorpedeiro");
                 mapa.setCoordenadasContraTorpedeiro(this.scanCoodernada(), this.scanPosicao(), 0);
                 break;
-            } catch (CoordenadaInvalidaException e){
+            } catch (CoordenadaInvalidaException | ArrayIndexOutOfBoundsException e){
                 System.out.println(e.getMessage());
             }
         }
@@ -162,6 +162,7 @@ public class GameController {
                 System.out.println("Valor inválido! tente novamente");
             } catch (Exception e){
                 System.out.println("Entrada inválida! Tente novamente");
+                scanner.nextLine();
             }
         }
 
@@ -173,9 +174,9 @@ public class GameController {
 
         while (true){
             try {
-                System.out.print("Deina o valor inicial para linha: ");
+                System.out.print("Defina o valor inicial para linha: ");
                 int linha = scanner.nextInt();
-                System.out.print("Deina o valor inicial para coluna: ");
+                System.out.print("Defina o valor inicial para coluna: ");
                 int coluna = scanner.nextInt();
                 coordenada = new Coordenada(linha, coluna);
                 break;
@@ -183,6 +184,7 @@ public class GameController {
                 System.out.println(e.getMessage());
             } catch (Exception e){
                 System.out.println("Entrada inválida!");
+                scanner.nextLine();
             }
         }
 

@@ -92,7 +92,7 @@ public class MatrizTest {
 
         matriz.alocarBarco((new SubmarinoFactory()).criarNovoBarco(), coordenada, Position.HORIZONTAL);
 
-        assertEquals('X', matriz.getCharNasCoordenadas(coordenada));
+        assertFalse(matriz.coordenadaEstaLivre(coordenada));
     }
 
     @Test

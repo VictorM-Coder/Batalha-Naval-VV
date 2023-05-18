@@ -56,6 +56,10 @@ public class Mapa {
                 && submarino.estaAfundado() && contraTorpedeiros[0].estaAfundado() && contraTorpedeiros[1].estaAfundado();
     }
 
+    public boolean coordenadaContemBarco(Coordenada coordenada){
+        return !matriz.coordenadaEstaLivre(coordenada);
+    }
+
     private Barco alocarBarco(BarcoFactory factory, Coordenada coordenada, Position position) throws CoordenadaInvalidaException {
         Barco barco = factory.criarNovoBarco();
         this.matriz.alocarBarco(barco, coordenada, position);

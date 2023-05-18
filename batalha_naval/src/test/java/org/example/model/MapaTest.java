@@ -2,13 +2,10 @@ package org.example.model;
 
 import org.example.enums.Position;
 import org.example.enums.StatusTiro;
-import org.example.model.barco.Barco;
 import org.example.model.coordenada.Coordenada;
 import org.example.model.mapa.Mapa;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,7 +63,7 @@ public class MapaTest {
 
         mapa.setCoordenadasSubmarino(coordenada);
 
-        assertEquals('X', mapa.getCharNasCoordenadas(coordenada));
+        assertTrue(mapa.coordenadaContemBarco(coordenada));
     }
 
     @Test
@@ -75,8 +72,8 @@ public class MapaTest {
 
         mapa.setCoordenadasRebocador(coordenada, Position.HORIZONTAL, 0);
 
-        assertEquals('X', mapa.getCharNasCoordenadas(coordenada));
-        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(coordenada.getLinha(), coordenada.getColuna()+1)));
+        assertTrue(mapa.coordenadaContemBarco(coordenada));
+        assertTrue(mapa.coordenadaContemBarco(new Coordenada(coordenada.getLinha(), coordenada.getColuna()+1)));
     }
 
     @Test
@@ -96,9 +93,9 @@ public class MapaTest {
 
         mapa.setCoordenadasContraTorpedeiro(coordenada, Position.HORIZONTAL, 0);
 
-        assertEquals('X', mapa.getCharNasCoordenadas(coordenada));
-        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(coordenada.getLinha(), coordenada.getColuna()+1)));
-        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(coordenada.getLinha(), coordenada.getColuna()+2)));
+        assertTrue(mapa.coordenadaContemBarco(coordenada));
+        assertTrue(mapa.coordenadaContemBarco(new Coordenada(coordenada.getLinha(), coordenada.getColuna()+1)));
+        assertTrue(mapa.coordenadaContemBarco(new Coordenada(coordenada.getLinha(), coordenada.getColuna()+2)));
     }
 
     @Test
@@ -119,10 +116,10 @@ public class MapaTest {
 
         mapa.setCoordenadasPortaAvioes(coordenada, Position.HORIZONTAL);
 
-        assertEquals('X', mapa.getCharNasCoordenadas(coordenada));
-        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(linha, coluna+1)));
-        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(linha, coluna+2)));
-        assertEquals('X', mapa.getCharNasCoordenadas(new Coordenada(linha, coluna+3)));
+        assertTrue(mapa.coordenadaContemBarco(coordenada));
+        assertTrue(mapa.coordenadaContemBarco(new Coordenada(linha, coluna+1)));
+        assertTrue(mapa.coordenadaContemBarco(new Coordenada(linha, coluna+2)));
+        assertTrue(mapa.coordenadaContemBarco(new Coordenada(linha, coluna+3)));
     }
 
     @Test
