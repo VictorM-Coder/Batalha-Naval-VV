@@ -10,6 +10,5 @@ public class Main {
         tela.printBanner();
         GameController gameController = new GameController();
         gameController.runGame();
-        tela.close();
     }
 }

@@ -23,6 +23,7 @@ public class GameController {
         posicionarBarcosJogador1();
         posicionarBarcosJogador2();
         iniciarDisparos();
+        this.scanner.close();
     }
 
     private void iniciarDisparos(){
@@ -43,17 +44,17 @@ public class GameController {
     private void dispararJogador1(){
         System.out.println();
         System.out.println("Turno de disparo do jogador 1");
+        this.printMapa(2);
         this.realizarDisparo(this.mapaJogador2);
-        System.out.println("----------------------------------------------");
-        this.printMapa(this.mapaJogador2.getMapa());
+        this.printMapa(2);
     }
 
     private void dispararJogador2(){
         System.out.println();
         System.out.println("Turno de disparo do jogador 2");
+        this.printMapa(1);
         this.realizarDisparo(this.mapajogador1);
-        System.out.println("----------------------------------------------");
-        this.printMapa(this.mapajogador1.getMapa());
+        this.printMapa(1);
     }
 
     private void realizarDisparo(Mapa mapa){
@@ -64,7 +65,7 @@ public class GameController {
                 System.out.println("Local repetido! tente novamento");
                 realizarDisparo(mapa);
             }
-            case AFUNDOU -> System.out.println("PArabéns! você afundou esse barco!");
+            case AFUNDOU -> System.out.println("Parabéns! você afundou esse barco!");
             case TIRO_NA_AGUA -> System.out.println("Por pouco! um tiro na água");
         }
     }
@@ -72,21 +73,27 @@ public class GameController {
     private void posicionarBarcosJogador1(){
         System.out.println("Jogador 1 posicione os seus barcos");
         this.posicionarBarcos(this.mapajogador1);
-        System.out.println("----------------Mapa Jogador 1----------------");
-        this.printMapa(this.mapajogador1.getMapa());
-        System.out.println("----------------------------------------------");
     }
 
     private void posicionarBarcosJogador2(){
         System.out.println("Jogador 2 posicione os seus barcos");
         this.posicionarBarcos(this.mapaJogador2);
-        System.out.println("----------------Mapa Jogador 2----------------");
-        this.printMapa(this.mapaJogador2.getMapa());
-        System.out.println("----------------------------------------------");
+    }
+
+    private void printMapa(int jogador){
+        if (jogador == 1){
+            System.out.println("----------------Mapa Jogador 1----------------");
+            this.printMapa(this.mapajogador1.getMapa());
+            System.out.println("----------------------------------------------");
+        }else if (jogador == 2) {
+            System.out.println("----------------Mapa Jogador 2----------------");
+            this.printMapa(this.mapaJogador2.getMapa());
+            System.out.println("----------------------------------------------");
+        }
     }
 
     private void printMapa(char[][] mapa){
-        System.out.println("  | A | B | C | D | E | F | H | I | J | K |");
+        System.out.println("  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |");
         for (int cont = 0; cont <= 9; cont++){
             System.out.print(cont);
             for (int cont1 = 0; cont1 <= 9; cont1++){
@@ -107,6 +114,8 @@ public class GameController {
                 break;
             } catch (CoordenadaInvalidaException e) {
                 System.out.println(e.getMessage());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Seu barco não cabe nesta posição! Tente um posicionamento diferente");
             }
         }
 
@@ -117,6 +126,8 @@ public class GameController {
                 break;
             }catch (CoordenadaInvalidaException e) {
                 System.out.println(e.getMessage());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Seu barco não cabe nesta posição! Tente um posicionamento diferente");
             }
         }
 
@@ -125,8 +136,10 @@ public class GameController {
                 System.out.println("Posicione o primeiro ContraTorpedeiro");
                 mapa.setCoordenadasContraTorpedeiro(this.scanCoodernada(), this.scanPosicao(), 0);
                 break;
-            } catch (CoordenadaInvalidaException | ArrayIndexOutOfBoundsException e){
+            } catch (CoordenadaInvalidaException e){
                 System.out.println(e.getMessage());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Seu barco não cabe nesta posição! Tente um posicionamento diferente");
             }
         }
 
@@ -137,6 +150,8 @@ public class GameController {
                 break;
             } catch (CoordenadaInvalidaException e) {
                 System.out.println(e.getMessage());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Seu barco não cabe nesta posição! Tente um posicionamento diferente");
             }
         }
 
@@ -147,13 +162,14 @@ public class GameController {
                 break;
             } catch (CoordenadaInvalidaException e) {
                 System.out.println(e.getMessage());
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Seu barco não cabe nesta posição! Tente um posicionamento diferente");
             }
         }
     }
 
     private Position scanPosicao(){
         int valor;
-
         while (true) {
             try {
                 System.out.print("Defina a posição do barco [0]Horizontal | [1]Vertical: ");
@@ -165,13 +181,11 @@ public class GameController {
                 scanner.nextLine();
             }
         }
-
         return (valor == 0)? Position.HORIZONTAL: Position.VERTICAL;
     }
 
     private Coordenada scanCoodernada() {
         Coordenada coordenada;
-
         while (true){
             try {
                 System.out.print("Defina o valor inicial para linha: ");
@@ -187,7 +201,6 @@ public class GameController {
                 scanner.nextLine();
             }
         }
-
         return coordenada;
     }
 }
